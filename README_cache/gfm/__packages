@@ -11,4 +11,3 @@ foreach
 iterators
 doParallel
 IterativeSteinerTree
-leaflet

@@ -17,6 +17,5 @@ Depends:
     rgeos,
     mapview,
     doParallel,
-    foreach,
-    leaflet
+    foreach
 RoxygenNote: 7.1.0

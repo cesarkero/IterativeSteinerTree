@@ -103,7 +103,7 @@ IterativeSteinerTree <- function(l, p, th=1000, iterations=1, samples=0, clean=T
     if (rpushbullet == TRUE){
         msg <- paste("Ended in", round(mins), "minutes, with a total length of",
                       round(tlen), "m")
-        RPushbullet::pbPost("note", title="Steiner Tree complete", body=msg)
+        RPushbullet::pbPost("note", title="Steiner Tree completed", body=msg)
     }
 
     return(c(SST, TST, tlen, mins))
