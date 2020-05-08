@@ -10,7 +10,6 @@ always_allow_html: yes
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
   out.width = "100%"
 )
 ```
@@ -34,7 +33,7 @@ install.packages("IterativeSteinerTree", dependencies = TRUE)
 
 ### Clean lines to get rid of unchained lines and topology errors:
 
-```{r example 1, cache = TRUE}
+```{r example 1, cache = TRUE, message=FALSE, results='hide'}
 library(IterativeSteinerTree)
 
 # basic setGRASS (based on iniGRASS params but simplified)
@@ -48,18 +47,19 @@ lclean <- CleanLines(l)
 ```
 
 Here you can check the differences between clean and dirty lines:
-```{r cache = TRUE, echo = FALSE}
-mapview(l)+lclean
+```{r cache = TRUE, echo = FALSE, message=FALSE, results='hide'}
+m <- mapview(l, color = "red")+lclean
+m@map %>% setView(-8.55522, 43.25067, zoom = 16)
+m
 ```
 
 ### Calculate simple Steiner Tree
 In this example we are goint to calculate a simple Steiner Tree with a sample of 
 50 points, conecting those out of the network by a threshold of 1000 m
 
-```{r example 2, cache = TRUE}
+```{r example 2, cache = TRUE, message=FALSE, results='hide'}
 # calculate Steiner Tree
 ST <- SteinerTree(lclean, p[1:50,], th = 1000)
-ST
 ```
 
 ### Calculate Iterative Steiner Tree
@@ -69,7 +69,7 @@ This is the core of the library and the only tools that's needed to create the S
 [[3]] --> Total length of the Total Steiner Tree (m)
 [[4]] --> Total time of processing in mins
 
-```{r example 3, cache = TRUE, comment=FALSE, warning=FALSE}
+```{r example 3, cache = TRUE, message=FALSE, results='hide'}
 IST <- IterativeSteinerTree(l = lclean, p = p[1:50,], th=1000, iterations = 10,
                             samples = 25, clean = FALSE, rpushbullet=TRUE)
 ```

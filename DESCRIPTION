@@ -18,4 +18,5 @@ Depends:
     mapview,
     doParallel,
     foreach,
+    leaflet
 RoxygenNote: 7.1.0

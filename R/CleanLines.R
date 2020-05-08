@@ -29,7 +29,7 @@ CleanLines <- function(x){
 
     # clean
     execGRASS("v.clean", input = 'lx', output = 'lc', tool = c('break','snap'),
-              threshold = c(10,10), flags = c('c','overwrite','quiet'))
+              threshold = c(5,5), flags = c('c','overwrite','quiet'))
     #build
     execGRASS("v.build", map = 'lc', option = 'build', flags = c('e', 'overwrite', 'quiet'))
 
