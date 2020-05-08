@@ -1,15 +1,23 @@
-#' SteinerTree function using v.net.steiner from GRASS as core function
+#' @title  Steiener tree function
+#' @description  Steiner Tree function using v.net.steiner from GRASS as core function
 #' It contains the v.net function to connect points to lines using threshold
 #'
 #' @param l Network to calculate Steiner Tree (SLDF)
 #' @param p Points to be conected by Steiner Tree (SPDF)
-#' @param th Threshold --> max distance of points to be connecte to lines
+#' @param th Threshold --> max distance of points to be connected to lines
 #'
-#' @return
+#' @return Steiner tree for the lines and points given. In case
+#' there is some error, it return NA
 #' @export
 #'
 #' @examples
-SteinerTree <- function(l, p, th) {
+#' setGRASS(gisBase = "/usr/lib/grass78", epsg= 25829)
+#' data("l"); data("p")
+#' st <- SteinerTree(l, p[1:20,], th = 1000, clean = TRUE)
+#' mapview(l)+st+p[1:20,]
+SteinerTree <- function(l, p, th, clean = FALSE) {
+    if (clean == TRUE){l <- CleanLines(l)}
+
     tryCatch({
         # import whole lines layer and clean topology
         writeVECT(l, 'l', v.in.ogr_flags = c('o','overwrite','quiet'))

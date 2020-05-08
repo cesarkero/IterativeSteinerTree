@@ -2,16 +2,22 @@
 % Please edit documentation in R/spatials2one.R
 \name{spatials2one}
 \alias{spatials2one}
-\title{Title}
+\title{spatials2one}
 \usage{
 spatials2one(spatials)
 }
 \arguments{
-\item{spatials}{}
+\item{spatials}{SLDF or list of SLDF's}
 }
 \value{
-
+SLDF
 }
 \description{
-Title
+Merge list of SLDF's. In case the object if already a SLDF, just returns it
+}
+\examples{
+data("l")
+ls <- list()
+for(i in 1:length(l[1:100,])){ls[i] <- l[i,]}
+spatials2one(ls)
 }

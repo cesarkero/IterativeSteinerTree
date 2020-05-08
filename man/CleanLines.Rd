@@ -10,7 +10,7 @@ CleanLines(x)
 \item{SpatialLinesDataFrame}{}
 }
 \value{
-
+SLDF ready to use in v.net and v.net.steiner
 }
 \description{
 This function will remove unchained parts of the lines layer
@@ -19,5 +19,8 @@ the layer is imported into grass to execute v.clean and v.build to repare
 topology issues#'
 }
 \examples{
-CleanLines(x)
+setGRASS(gisBase = "/usr/lib/grass78", epsg= 25829)
+data("l")
+lc <- CleanLines(l[1:100,])
+mapview(l[1:100,])+lc
 }

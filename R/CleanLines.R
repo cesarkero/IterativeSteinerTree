@@ -5,11 +5,14 @@
 #' topology issues#'
 #' @param SpatialLinesDataFrame
 #'
-#' @return
+#' @return SLDF ready to use in v.net and v.net.steiner
 #' @export
 #'
 #' @examples
-#' CleanLines(x)
+#' setGRASS(gisBase = "/usr/lib/grass78", epsg= 25829)
+#' data("l")
+#' lc <- CleanLines(l[1:100,])
+#' mapview(l[1:100,])+lc
 CleanLines <- function(x){
     # CRITICAL PART IN ORDER TO MAKE V.NET.STEINER
 
@@ -21,20 +24,14 @@ CleanLines <- function(x){
     # remove lines that intersect with any of the tiny buffers from NotMainNet
     ls <- x[!xpart[,1],]
 
-    #ininiate grass
-    setGRASS()
-
     #import lines
-    writeVECT(ls, 'lx', v.in.ogr_flags = c('o','overwrite','quiet'),
-              Sys_show.output.on.console = FALSE)
+    writeVECT(ls, 'lx', v.in.ogr_flags = c('o','overwrite','quiet'))
 
     # clean
     execGRASS("v.clean", input = 'lx', output = 'lc', tool = c('break','snap'),
-              threshold = c(10,10), flags = c('o','overwrite','quiet'),
-              Sys_show.output.on.console = FALSE)
+              threshold = c(10,10), flags = c('c','overwrite','quiet'))
     #build
-    execGRASS("v.build", map = 'lc', option = 'build', flags = c('e', 'overwrite', 'quiet'),
-              Sys_show.output.on.console = FALSE)
+    execGRASS("v.build", map = 'lc', option = 'build', flags = c('e', 'overwrite', 'quiet'))
 
     return(readVECT('lc'))
 }

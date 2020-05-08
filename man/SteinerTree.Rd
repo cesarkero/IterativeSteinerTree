@@ -2,22 +2,28 @@
 % Please edit documentation in R/SteinerTree.R
 \name{SteinerTree}
 \alias{SteinerTree}
-\title{SteinerTree function using v.net.steiner from GRASS as core function
-It contains the v.net function to connect points to lines using threshold}
+\title{Steiener tree function}
 \usage{
-SteinerTree(l, p, th)
+SteinerTree(l, p, th, clean = FALSE)
 }
 \arguments{
 \item{l}{Network to calculate Steiner Tree (SLDF)}
 
 \item{p}{Points to be conected by Steiner Tree (SPDF)}
 
-\item{th}{Threshold --> max distance of points to be connecte to lines}
+\item{th}{Threshold --> max distance of points to be connected to lines}
 }
 \value{
-
+Steiner tree for the lines and points given. In case
+there is some error, it return NA
 }
 \description{
-SteinerTree function using v.net.steiner from GRASS as core function
+Steiner Tree function using v.net.steiner from GRASS as core function
 It contains the v.net function to connect points to lines using threshold
+}
+\examples{
+setGRASS(gisBase = "/usr/lib/grass78", epsg= 25829)
+data("l"); data("p")
+st <- SteinerTree(l, p[1:20,], th = 1000, clean = TRUE)
+mapview(l)+st+p[1:20,]
 }
