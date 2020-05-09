@@ -9,7 +9,7 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Imports: 
-    rgrass7::initGRASS(),
+    rgrass7,
     rgdal,
     sp,
     sf,

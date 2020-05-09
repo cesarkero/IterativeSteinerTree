@@ -11,7 +11,7 @@ setGRASS(
   location = "grassdata",
   mapset = "PERMANENT",
   override = TRUE,
-  flags = "c",
+  flags = c("c", "quiet"),
   epsg = 25829
 )
 }
@@ -40,6 +40,10 @@ Function to initialize rgrass
 }
 \examples{
 \dontrun{
+# linux
 setGRASS(gisBase = "/usr/lib/grass78", epsg= 25829)
+
+# windows
+setGRASS("C:\\\\Program Files\\\\GRASS GIS 7.8", home=tempdir(), override = TRUE)
 }
 }
