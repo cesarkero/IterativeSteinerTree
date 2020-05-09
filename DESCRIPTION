@@ -18,5 +18,7 @@ Imports:
     doParallel,
     foreach,
     pbapply,
-    RPushbullet
+    RPushbullet,
+    RCurl,
+    XML
 RoxygenNote: 7.1.0
