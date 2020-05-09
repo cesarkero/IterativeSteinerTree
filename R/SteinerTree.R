@@ -19,7 +19,10 @@
 #' mapview(l)+st+p[1:20,]
 #' }
 SteinerTree <- function(l, p, th, clean = FALSE) {
-    if (clean == TRUE){l <- CleanLines(l)}
+    if (clean == TRUE){
+        print("Cleaning lines...")
+        l <- CleanLines(l)
+    }
 
     tryCatch({
         # import whole lines layer and clean topology
@@ -32,6 +35,7 @@ SteinerTree <- function(l, p, th, clean = FALSE) {
         execGRASS("v.net", input = 'l', points = 'p', output = 'lnet',
                   operation = 'connect', threshold = th, flags = c('overwrite','quiet'))
 
+        print("Calculating Steiner Tree...")
         # steiner tree
         execGRASS("v.net.steiner",
                   input = 'lnet',

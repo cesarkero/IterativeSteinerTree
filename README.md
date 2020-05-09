@@ -14,86 +14,22 @@ rid of never used paths and simplifies the informations the grass
 v.net.steiner needs. Morover, the library contains tools to clean
 topology error and “undchained” lines that can make grass crush.
 
+## Notes
+
+Currently, this package has been just tested in:
+
+  - Ubuntu 20.04 with R 3.6.3
+  - Windows 10 with R 4.0 + Rtools40
+
 # Installation
 
-You can install the released version of IterativeSteinerTree from
-[CRAN](https://CRAN.R-project.org) with:
+First of all, GRASS 7.8 is needed before using these tools.
 
-``` r
-install.packages("IterativeSteinerTree", dependencies = TRUE)
-```
-
-# Examples
-
-## Clean lines (unchained lines and topology errors):
-
-``` r
-library(IterativeSteinerTree)
-## Warning in fun(libname, pkgname): rgeos: versions of GEOS runtime 3.8.0-CAPI-1.13.1
-## and GEOS at installation 3.7.2-CAPI-1.11.2differ
-
-# basic setGRASS (based on iniGRASS params but simplified)
-setGRASS(gisBase = "/usr/lib/grass78", epsg= 25829)
-
-# load sldf (l) and spdf (p)
-data("l"); data("p")
-
-# clean lines
-lclean <- CleanLines(l)
-```
-
-Large networks use to have little unconections and topology errors that
-could result in a failure when calculating Steiner Tree. Here you can
-check the differences between clean and dirty lines. Red lines are those
-included in the original layer and not in the corrected one:
-
-``` r
-m1 <- mapview(l, color="red")+lclean
-mapshot(m1, url = paste0(getwd(),'/man/html/m1.html')) ## create standalone .html
-m1
-```
-
-<div class="figure" style="text-align: center">
-
-<img src="./man/figures/lclean.gif" alt="Example of removed lines (red)" width="75%" />
-
-<p class="caption">
-
-Example of removed lines (red)
-
-</p>
-
-</div>
-
-## Calculate Simple Steiner Tree
-
-In this example we are goint to calculate a simple Steiner Tree with a
-sample of 50 points, conecting those out of the network by a threshold
-of 1000 m.
-
-``` r
-ST <- SteinerTree(lclean, p[1:50,], th = 1000)
-```
-
-``` r
-m2 <- mapview(lclean)+ST+p[1:50,]
-mapshot(m2, url = paste0(getwd(),'/man/html/m2.html')) ## create standalone .html
-m2
-```
-
-<div class="figure" style="text-align: center">
-
-<img src="./man/figures/ST.gif" alt="Example of simple Steiner Tree with 50 points" width="75%" />
-
-<p class="caption">
-
-Example of simple Steiner Tree with 50 points
-
-</p>
-
-</div>
-
------
+  - Windows:
+    [Download](https://grass.osgeo.org/grass78/binary/mswindows/native/x86_64/WinGRASS-7.8.2-1-Setup-x86_64.exe)
+  - Linux: the easiest way is to install it with QGIS from console: `r
+    sudo apt-get update && sudo apt-get install qgis qgis-plugin-grass
+    qgis-plugin-grass saga`
 
 ## Calculate Iterative Steiner Tree
 

@@ -18,12 +18,28 @@ knitr::opts_chunk$set(
 
 The goal of IterativeSteinerTree is to perform an Steiner Tree using grass tools internaly. It has been conceived to calculate Steiner Tree in large networks without burning out the PC. How does it work? The algorith iterates over a list of points, creating an Steiner Tree with a sample of these. After all the iterations, it pastes the different trees and calculates a global Steiner Tree. This method allows the  user to get rid of never used paths and simplifies the informations the grass v.net.steiner needs. Morover, the library contains tools to clean topology error and "undchained" lines that can make grass crush.
 
+## Notes
+Currently, this package has been just tested in:
+
+- Ubuntu 20.04 with R 3.6.3
+- Windows 10 with R 4.0 + Rtools40
+
 # Installation
 
-You can install the released version of IterativeSteinerTree from [CRAN](https://CRAN.R-project.org) with:
+First of all, GRASS 7.8 is needed before using these tools.
+
+- Windows: [Download](https://grass.osgeo.org/grass78/binary/mswindows/native/x86_64/WinGRASS-7.8.2-1-Setup-x86_64.exe)
+- Linux: the easiest way is to install it with QGIS from console:
+```r sudo apt-get update && sudo apt-get install qgis qgis-plugin-grass qgis-plugin-grass saga ```
+
+---
+Once you have grass, you can install the github version using this lines:
 
 ``` r
-install.packages("IterativeSteinerTree", dependencies = TRUE)
+update.packages()
+install.packages("devtools")
+library(devtools)
+install_github("cesarkero/IterativeSteinerTree")
 ```
 
 # Examples
@@ -35,6 +51,9 @@ library(IterativeSteinerTree)
 
 # basic setGRASS (based on iniGRASS params but simplified)
 setGRASS(gisBase = "/usr/lib/grass78", epsg= 25829)
+
+# Windows setGRASS example: 
+# initGRASS("C:\\Program Files\\GRASS GIS 7.8", home=tempdir())
 
 # load sldf (l) and spdf (p)
 data("l"); data("p")
