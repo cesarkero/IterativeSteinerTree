@@ -1,6 +1,6 @@
 Iterative Steiner Tree
 ================
-2020-05-08
+2020-05-09
 
 # Description
 
@@ -14,7 +14,7 @@ rid of never used paths and simplifies the informations the grass
 v.net.steiner needs. Morover, the library contains tools to clean
 topology error and “undchained” lines that can make grass crush.
 
-## Installation
+# Installation
 
 You can install the released version of IterativeSteinerTree from
 [CRAN](https://CRAN.R-project.org) with:
@@ -23,27 +23,41 @@ You can install the released version of IterativeSteinerTree from
 install.packages("IterativeSteinerTree", dependencies = TRUE)
 ```
 
-## Examples
+# Examples
 
-### Clean lines to get rid of unchained lines and topology errors:
+## Clean lines to get rid of unchained lines and topology errors:
 
 ``` r
 library(IterativeSteinerTree)
-## Warning in fun(libname, pkgname): rgeos: versions of GEOS runtime 3.8.0-CAPI-1.13.1
-## and GEOS at installation 3.7.2-CAPI-1.11.2differ
 
 # basic setGRASS (based on iniGRASS params but simplified)
 setGRASS(gisBase = "/usr/lib/grass78", epsg= 25829)
+## La región predeterminada fue actualizada a la nueva proyección, pero si
+## usted tiene múltiples Directorios de mapas debe correr 'g.region -d' en
+## cada uno para actualizar la región a partir de la predeterminada
+## Información de la proyección actualizada
 
 # load sldf (l) and spdf (p)
 data("l"); data("p")
 
 # clean lines
 lclean <- CleanLines(l)
+## ADVERTENCIA: El umbral para la herramienta 1 no puede >0, establecido a 0
+## Exportando 12846 elementos...
+##    5%  11%  17%  23%  29%  35%  41%  47%  53%  59%  65%  71%  77%  83%  89%  95% 100%
+## v.out.ogr completo. 13011 elementos (tipo Line String) escritos a <lc>
+## (formato GPKG).
+## OGR data source with driver: GPKG 
+## Source: "/tmp/RtmpsMZevH/grassdata/PERMANENT/.tmp/cesarkero-PC/787.0.gpkg", layer: "lc"
+## with 13011 features
+## It has 13 fields
 ```
 
-Here you can check the differences between clean and dirty
-lines:
+Large networks use to have little unconections and topology errors that
+could result in a failure when calculating Steiner Tree. Here you can
+check the differences between clean and dirty lines. Red lines are those
+included in the original layer and not in the corrected
+one:
 
 ``` r
 mapview(l, color="red")+lclean
@@ -51,7 +65,7 @@ mapview(l, color="red")+lclean
 
 <div class="figure" style="text-align: center">
 
-<img src="./man/figures/lclean.gif" alt="Example of removed lines (red)" width="50%" />
+<img src="./man/figures/lclean.gif" alt="Example of removed lines (red)" width="75%" />
 
 <p class="caption">
 
@@ -61,22 +75,7 @@ Example of removed lines (red)
 
 </div>
 
-### Calculate simple Steiner Tree
-
-In this example we are goint to calculate a simple Steiner Tree with a
-sample of 50 points, conecting those out of the network by a threshold
-of 1000 m
-
-``` r
-# calculate Steiner Tree
-ST <- SteinerTree(lclean, p[1:50,], th = 1000)
-```
-
-``` r
-mapview(lclean)+ST+p[1:50,]
-```
-
-### Calculate Iterative Steiner Tree
+## Calculate Iterative Steiner Tree
 
 This is the core of the library and the only tools that’s needed to
 create the Steiner Tree. It can be used both to calculate a non
@@ -89,13 +88,34 @@ layer - \[\[3\]\] –\> Total length of the Total Steiner Tree (m) -
 mins
 
 ``` r
-IST <- IterativeSteinerTree(l = lclean, p = p[1:50,], th=1000, iterations = 25,
-                            samples = 25, clean = FALSE, rpushbullet=TRUE)
+IST <- IterativeSteinerTree(l = lclean, p[1:100,], th=1000, iterations = 25,
+                            samples = 10, clean = FALSE, rpushbullet=TRUE)
 ```
 
+In this example, an Iterative Steiner Tree have been calculated for 100
+points, making 25 iterations with 10 points each:
+
 ``` r
-mapview(IST[[1]], color="blue")+IST[[2]]+p[1:50,]
+m3 <- mapview(IST[[1]], color="blue")+IST[[2]]+p[1:100,]
+## create standalone .html
+mapshot(m3, url = paste0(getwd(),'/man/html/m3.html'))
 ```
+
+<iframe width="75%" height="75%" src="/man/html/m3.html"></iframe>
+
+</iframe>
+
+<div class="figure" style="text-align: center">
+
+<img src="./man/figures/SST.gif" alt="Example of removed lines (red)" width="75%" />
+
+<p class="caption">
+
+Example of removed lines (red)
+
+</p>
+
+</div>
 
 Moreover, if you have previously configured
 [rpushbullet](https://github.com/eddelbuettel/rpushbullet) you will get

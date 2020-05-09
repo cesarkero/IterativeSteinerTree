@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 The goal of IterativeSteinerTree is to perform an Steiner Tree using grass tools internaly. It has been conceived to calculate Steiner Tree in large networks without burning out the PC. How does it work? The algorith iterates over a list of points, creating an Steiner Tree with a sample of these. After all the iterations, it pastes the different trees and calculates a global Steiner Tree. This method allows the  user to get rid of never used paths and simplifies the informations the grass v.net.steiner needs. Morover, the library contains tools to clean topology error and "undchained" lines that can make grass crush.
 
-## Installation
+# Installation
 
 You can install the released version of IterativeSteinerTree from [CRAN](https://CRAN.R-project.org) with:
 
@@ -26,11 +26,11 @@ You can install the released version of IterativeSteinerTree from [CRAN](https:/
 install.packages("IterativeSteinerTree", dependencies = TRUE)
 ```
 
-## Examples
+# Examples
 
-### Clean lines to get rid of unchained lines and topology errors:
+## Clean lines to get rid of unchained lines and topology errors:
 
-```{r example 1, cache = TRUE, message=FALSE, results='hide'}
+```{r example 1, cache = TRUE, message=FALSE}
 library(IterativeSteinerTree)
 
 # basic setGRASS (based on iniGRASS params but simplified)
@@ -43,20 +43,21 @@ data("l"); data("p")
 lclean <- CleanLines(l)
 ```
 
-Here you can check the differences between clean and dirty lines:
+Large networks use to have little unconections and topology errors that could result in a failure when calculating Steiner Tree. Here you can check the differences between clean and dirty lines. Red lines are those included in the original layer and not in the corrected one:
+
 ```{r eval = FALSE, echo = TRUE}
 mapview(l, color="red")+lclean
 ```
 
-```{r echo = FALSE, fig.cap="Example of removed lines (red)", out.width = '50%', fig.align="center"}
+```{r echo = FALSE, fig.cap="Example of removed lines (red)", out.width = '75%', fig.align="center"}
 knitr::include_graphics("./man/figures/lclean.gif")
 ```
-
-### Calculate simple Steiner Tree
+---
+## Calculate simple Steiner Tree
 In this example we are goint to calculate a simple Steiner Tree with a sample of 
 50 points, conecting those out of the network by a threshold of 1000 m
 
-```{r ST, cache = TRUE, message=FALSE, results='hide'}
+```{r ST, cache = TRUE, message=FALSE, eval = TRUE, results='hide'}
 # calculate Steiner Tree
 ST <- SteinerTree(lclean, p[1:50,], th = 1000)
 ```
@@ -64,21 +65,31 @@ ST <- SteinerTree(lclean, p[1:50,], th = 1000)
 ```{r eval = FALSE, echo = TRUE}
 mapview(lclean)+ST+p[1:50,]
 ```
-
-### Calculate Iterative Steiner Tree
+```{r echo = FALSE, fig.cap="Example of removed lines (red)", out.width = '75%', fig.align="center"}
+knitr::include_graphics("./man/figures/ST.gif")
+```
+---
+## Calculate Iterative Steiner Tree
 This is the core of the library and the only tools that's needed to create the Steiner Tree. It can be used both to calculate a non iterative Steiner Tree (by setting iterations = 0/1) or to calculate an Iterative Steiner Tree. The main function will return a list of: 
 - [[1]] --> Merged Steiner Tree with all iterations
 - [[2]] --> Total Steiner Tree calculated using Merged Steiner Trees and points layer
 - [[3]] --> Total length of the Total Steiner Tree (m)
 - [[4]] --> Total time of processing in mins
 
-```{r IST, cache = TRUE, message=FALSE, results='hide'}
-IST <- IterativeSteinerTree(l = lclean, p = p[1:50,], th=1000, iterations = 25,
-                            samples = 25, clean = FALSE, rpushbullet=TRUE)
+```{r IST, echo = TRUE, eval = TRUE, cache = TRUE, message=FALSE, results='hide'}
+IST <- IterativeSteinerTree(l = lclean, p[1:100,], th=1000, iterations = 25,
+                            samples = 10, clean = FALSE, rpushbullet=TRUE)
 ```
-
+In this example, an Iterative Steiner Tree have been calculated for 100 points, making 25 iterations with 10 points each:
 ```{r eval = FALSE, echo = TRUE}
-mapview(IST[[1]], color="blue")+IST[[2]]+p[1:50,]
+m3 <- mapview(IST[[1]], color="blue")+IST[[2]]+p[1:100,]
+## create standalone .html
+mapshot(m3, url = paste0(getwd(),'/man/html/m3.html'))
+```
+<iframe width="75%" height="75%" src='/man/html/m3.html' /></iframe>
+
+```{r echo = FALSE, fig.cap="Example of removed lines (red)", out.width = '75%', fig.align="center"}
+knitr::include_graphics("./man/figures/SST.gif")
 ```
 
 Moreover, if you have previously configured [rpushbullet](https://github.com/eddelbuettel/rpushbullet)
