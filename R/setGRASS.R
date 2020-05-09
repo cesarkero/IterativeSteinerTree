@@ -5,7 +5,7 @@
 #' @param gisDbase Temporal file by default
 #' @param location Main folder for importing and processing
 #' @param mapset Subfolder for importing and processgin
-#' @param overrride TRUE by default
+#' @param override TRUE by default
 #' @param flags Options for rgrass7 package
 #' @param epsg By default set to 25829
 #'
@@ -13,7 +13,6 @@
 #' @export
 #'
 #' @examples
-#' setGRASS()
 #' \dontrun{
 #' setGRASS(gisBase = "/usr/lib/grass78", epsg= 25829)
 #' }

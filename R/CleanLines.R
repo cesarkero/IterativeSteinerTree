@@ -1,18 +1,21 @@
 #' Clean lines (SpatialLinesDataFrame) for Steiner tree
+#'
+#' @param x SpatialLinesDataFrame (network)
+#'
 #' @description This function will remove unchained parts of the lines layer
 #' that can cause issues when executing v.net.steiner. After removing those parts,
 #' the layer is imported into grass to execute v.clean and v.build to repare
 #' topology issues#'
-#' @param SpatialLinesDataFrame
-#'
 #' @return SLDF ready to use in v.net and v.net.steiner
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' setGRASS(gisBase = "/usr/lib/grass78", epsg= 25829)
 #' data("l")
 #' lc <- CleanLines(l[1:100,])
 #' mapview(l[1:100,])+lc
+#' }
 CleanLines <- function(x){
     # CRITICAL PART IN ORDER TO MAKE V.NET.STEINER
 

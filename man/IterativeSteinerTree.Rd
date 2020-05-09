@@ -51,7 +51,9 @@ main network and remove all those patch, terminals and other lines that are not
 usefull and add noise to calculations.
 }
 \examples{
+\dontrun{
 data("l"); data("p")
-setGRASS(gisBase = "/usr/lib/grass78", epsg= 25829)
-IST <- IterativeSteinerTree(l, p, 1000, 3, samples = 10, clean = TRUE, rpushbullet=TRUE)
+setGRASS()
+IST <- IterativeSteinerTree(l, p, 1000, 3, samples = 10, clean = TRUE, rpushbullet=FALSE)
+}
 }

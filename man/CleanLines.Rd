@@ -7,7 +7,7 @@
 CleanLines(x)
 }
 \arguments{
-\item{SpatialLinesDataFrame}{}
+\item{x}{SpatialLinesDataFrame (network)}
 }
 \value{
 SLDF ready to use in v.net and v.net.steiner
@@ -19,8 +19,10 @@ the layer is imported into grass to execute v.clean and v.build to repare
 topology issues#'
 }
 \examples{
+\dontrun{
 setGRASS(gisBase = "/usr/lib/grass78", epsg= 25829)
 data("l")
 lc <- CleanLines(l[1:100,])
 mapview(l[1:100,])+lc
+}
 }

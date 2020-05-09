@@ -26,11 +26,11 @@ setGRASS(
 
 \item{mapset}{Subfolder for importing and processgin}
 
+\item{override}{TRUE by default}
+
 \item{flags}{Options for rgrass7 package}
 
 \item{epsg}{By default set to 25829}
-
-\item{overrride}{TRUE by default}
 }
 \value{
 There is no output, just setting the grass paths, flags...
@@ -39,7 +39,6 @@ There is no output, just setting the grass paths, flags...
 Function to initialize rgrass
 }
 \examples{
-setGRASS()
 \dontrun{
 setGRASS(gisBase = "/usr/lib/grass78", epsg= 25829)
 }

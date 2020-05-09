@@ -17,5 +17,19 @@ Depends:
     rgeos,
     mapview,
     doParallel,
-    foreach
+    foreach,
+    pbapply,
+    RPushbullet
+Imports: 
+    rgrass7,
+    rgdal,
+    raster,
+    sp,
+    sf,
+    rgeos,
+    mapview,
+    doParallel,
+    foreach,
+    pbapply,
+    RPushbullet
 RoxygenNote: 7.1.0

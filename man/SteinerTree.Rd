@@ -12,6 +12,8 @@ SteinerTree(l, p, th, clean = FALSE)
 \item{p}{Points to be conected by Steiner Tree (SPDF)}
 
 \item{th}{Threshold --> max distance of points to be connected to lines}
+
+\item{clean}{If true, sldf will be cleaned internaly using CleanLines()}
 }
 \value{
 Steiner tree for the lines and points given. In case
@@ -22,8 +24,10 @@ Steiner Tree function using v.net.steiner from GRASS as core function
 It contains the v.net function to connect points to lines using threshold
 }
 \examples{
+\dontrun{
 setGRASS(gisBase = "/usr/lib/grass78", epsg= 25829)
 data("l"); data("p")
 st <- SteinerTree(l, p[1:20,], th = 1000, clean = TRUE)
 mapview(l)+st+p[1:20,]
+}
 }

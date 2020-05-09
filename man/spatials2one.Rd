@@ -16,8 +16,10 @@ SLDF
 Merge list of SLDF's. In case the object if already a SLDF, just returns it
 }
 \examples{
+\dontrun{
 data("l")
 ls <- list()
 for(i in 1:length(l[1:100,])){ls[i] <- l[i,]}
 spatials2one(ls)
+}
 }

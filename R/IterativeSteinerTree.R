@@ -30,9 +30,11 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' data("l"); data("p")
-#' setGRASS(gisBase = "/usr/lib/grass78", epsg= 25829)
-#' IST <- IterativeSteinerTree(l, p, 1000, 3, samples = 10, clean = TRUE, rpushbullet=TRUE)
+#' setGRASS()
+#' IST <- IterativeSteinerTree(l, p, 1000, 3, samples = 10, clean = TRUE, rpushbullet=FALSE)
+#' }
 IterativeSteinerTree <- function(l, p, th=1000, iterations=1, samples=0, clean=TRUE,
                                  rpushbullet=FALSE){
     t0 <- Sys.time()

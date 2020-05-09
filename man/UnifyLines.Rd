@@ -7,9 +7,7 @@
 UnifyLines(l)
 }
 \arguments{
-\item{sldf}{SpatialLinesDataFrame entry}
-
-\item{attr}{"All" by default}
+\item{l}{sldf to be unified}
 }
 \value{
 sldf unified into one feature
@@ -20,6 +18,7 @@ into a unique line that works as a clean network to caltulate the final
 Total Steiner Tree
 }
 \examples{
+\dontrun{
 data("l")
 ls <- list()
 for(i in 1:length(l[1:100,])){ls[i] <- l[i,]}
@@ -30,4 +29,5 @@ l2 <- rbind(l1,l1)
 
 # UnifyLines (network)
 UnifyLines(l2)
+}
 }

@@ -5,16 +5,19 @@
 #' @param l Network to calculate Steiner Tree (SLDF)
 #' @param p Points to be conected by Steiner Tree (SPDF)
 #' @param th Threshold --> max distance of points to be connected to lines
+#' @param clean If true, sldf will be cleaned internaly using CleanLines()
 #'
 #' @return Steiner tree for the lines and points given. In case
 #' there is some error, it return NA
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' setGRASS(gisBase = "/usr/lib/grass78", epsg= 25829)
 #' data("l"); data("p")
 #' st <- SteinerTree(l, p[1:20,], th = 1000, clean = TRUE)
 #' mapview(l)+st+p[1:20,]
+#' }
 SteinerTree <- function(l, p, th, clean = FALSE) {
     if (clean == TRUE){l <- CleanLines(l)}
 
