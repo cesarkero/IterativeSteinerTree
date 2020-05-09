@@ -54,7 +54,7 @@ library(IterativeSteinerTree)
 setGRASS(gisBase = "/usr/lib/grass78", epsg= 25829)
 
 # Windows setGRASS example: 
-# setGRASS("C:\\Program Files\\GRASS GIS 7.8", home=tempdir())
+# setGRASS("C:\\Program Files\\GRASS GIS 7.8", home=tempdir(), override = TRUE)
 
 # load sldf (l) and spdf (p)
 data("l"); data("p")

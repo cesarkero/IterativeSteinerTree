@@ -8,8 +8,9 @@ Description: Calculates Steiner Tree for large areas without burning the PC out.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
+Depends: 
+    rgrass7
 Imports: 
-    rgrass7,
     rgdal,
     sp,
     sf,
