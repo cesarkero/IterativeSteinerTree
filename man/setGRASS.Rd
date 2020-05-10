@@ -41,9 +41,9 @@ Function to initialize rgrass
 \examples{
 \dontrun{
 # linux
-setGRASS(gisBase = "/usr/lib/grass78", epsg= 25829)
+setGRASS(gisBase = '/usr/lib/grass78', epsg= 25829)
 
-# windows
-setGRASS("C:\\\\Program Files\\\\GRASS GIS 7.8", home=tempdir(), override = TRUE)
+# Windows
+# Not working yet...
 }
 }

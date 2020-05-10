@@ -2,18 +2,18 @@ Package: IterativeSteinerTree
 Type: Package
 Title: Calculates Steiner Tree with Iterative processes (parallel...not yet...)
 Version: 0.1.0
-Author: César Arquero Cabral <cesar.arquero@outlook.es>
-Maintainer: César Arquero Cabral <cesar.arquero@outlook.es>
+Author: César Arquero Cabral <cesarkero@gmail.com>
+Maintainer: César Arquero Cabral <cesarkero@gmail.com>
 Description: Calculates Steiner Tree for large areas without burning the PC out.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Depends: 
-    rgrass7
+    rgrass7,
+    sf
 Imports: 
     rgdal,
     sp,
-    sf,
     rgeos,
     mapview,
     doParallel,

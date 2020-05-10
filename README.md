@@ -1,30 +1,35 @@
 Iterative Steiner Tree
 ================
-2020-05-09
+2020-05-10
 
 # Description
 
 The goal of IterativeSteinerTree is to perform an Steiner Tree using
-grass tools internaly. It has been conceived to calculate Steiner Tree
-in large networks without burning out the PC. How does it work? The
-algorith iterates over a list of points, creating an Steiner Tree with a
-sample of these. After all the iterations, it pastes the different trees
-and calculates a global Steiner Tree. This method allows the user to get
-rid of never used paths and simplifies the informations the grass
-v.net.steiner needs. Morover, the library contains tools to clean
-topology error and “undchained” lines that can make grass crush.
+grass tools, in low resources pc’s with linux environments. It has been
+conceived to calculate Steiner Tree in large networks without burning
+out the PC. How does it work? The algorith iterates over a list of
+points, creating an Steiner Tree with a sample of these. After all the
+iterations, it pastes the different trees and calculates a global
+Steiner Tree. This method allows the user to get rid of never used paths
+and simplifies the informations the grass v.net.steiner needs. Morover,
+the library contains tools to clean topology error and “undchained”
+lines that can make grass crush.
 
 # Installation
 
-Currently, this package has been just tested in:
+Currently, this package has been just tested just in linux because
+windows configuration of R and grass is a mesh:
 
   - Ubuntu 20.04 with R 3.6.3
-  - Windows 10 with R 4.0 + Rtools40
+  - Windows 10 with R 4.0 + Rtools40 (some try outs but some problems
+    with initGRASS(), suing osgeo4w and grass78 installed directly from
+    grass)
 
 First of all, GRASS 7.8 is needed before using these tools.
 
-  - Windows:
-    [Download](https://grass.osgeo.org/grass78/binary/mswindows/native/x86_64/WinGRASS-7.8.2-1-Setup-x86_64.exe)
+  - Windows (using osgeo4w):
+    [Download](http://download.osgeo.org/osgeo4w/osgeo4w-setup-x86_64.exe)
+    (Remember, not working yet in windows…)
 
   - Linux: the easiest way is to install it with QGIS from console:
 
@@ -38,7 +43,6 @@ lines:
 
 ``` r
 update.packages()
-install.packages("devtools")
 library(devtools)
 install_github("cesarkero/IterativeSteinerTree")
 ```
@@ -54,7 +58,7 @@ library(IterativeSteinerTree)
 setGRASS(gisBase = "/usr/lib/grass78", epsg= 25829)
 
 # Windows setGRASS example: 
-# initGRASS("C:\\Program Files\\GRASS GIS 7.8", home=tempdir())
+# setGRASS("C:/OSGeo4W64/apps/grass/grass78", home=tempdir(), override = TRUE)
 
 # load sldf (l) and spdf (p)
 data("l"); data("p")
@@ -92,8 +96,12 @@ In this example we are goint to calculate a simple Steiner Tree with a
 sample of 50 points, conecting those out of the network by a threshold
 of 1000 m.
 
+Use this function (remember to setGRASS/initGRASS before):
+
 ``` r
 ST <- SteinerTree(lclean, p[1:50,], th = 1000)
+## Warning in system2(command = command, args = arguments, stdout = outFile, :
+## error in running command
 ```
 
 ``` r
@@ -127,10 +135,10 @@ Iterative Steiner Tree. The main function will return a list of:
   - \[\[2\]\] –\> Total Steiner Tree calculated using Merged Steiner
     Trees and points layer
   - \[\[3\]\] –\> Total length of the Total Steiner Tree (m)
-  - \[\[4\]\] –\> Total time of processing in
-mins
+  - \[\[4\]\] –\> Total time of processing in mins
 
-<!-- end list -->
+Use this function (remember to setGRASS/initGRASS
+before):
 
 ``` r
 IST <- IterativeSteinerTree(l = lclean, p[1:100,], th=1000, iterations = 25,

@@ -15,26 +15,25 @@
 #' @examples
 #' \dontrun{
 #' # linux
-#' setGRASS(gisBase = "/usr/lib/grass78", epsg= 25829)
+#' setGRASS(gisBase = '/usr/lib/grass78', epsg= 25829)
 #'
-#' # windows
-#' setGRASS("C:\\Program Files\\GRASS GIS 7.8", home=tempdir(), override = TRUE)
+#' # Windows
+#' # Not working yet...
 #' }
 setGRASS <- function(gisBase = "/usr/lib/grass78", home = tempdir(), gisDbase = tempdir(),
                      location = 'grassdata', mapset = "PERMANENT", override = TRUE,
                      flags=c('c','quiet'), epsg= 25829){
 
-    if (Sys.info()[['sysname']]=="Linux"){
+    # define the GRASS executable path
+    if(Sys.info()["sysname"] == "Windows"){
+        print("Not ready yet to work in windows...")
+        # gisBase <- 'C:/OSGeo4W64/apps/grass/grass-7.0.5'
+    }else {
         # Grass config
         initGRASS(gisBase = gisBase, home = home, gisDbase = gisDbase,
                   location = location, mapset = mapset, override = override)
         use_sp()
         # assign GRASS projection according to data set (may be not needed)
         execGRASS('g.proj', flags = flags, epsg = epsg)
-    } else {
-        # Grass config
-        initGRASS(gisBase = gisBase, home = home, gisDbase = gisDbase,
-                  location = location, mapset = mapset, override = override)
-        use_sp()
     }
 }
